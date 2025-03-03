@@ -1,4 +1,3 @@
-// File: Canvas.tsx
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
@@ -8,65 +7,38 @@ import { Point, ToolType } from '../types';
 import 'react-toastify/dist/ReactToastify.css';
 import { onDraw, emitDraw, onUserConnected, emitUserConnected, removeSocketListeners } from '../utils/socket/socket';
 import Toolbar from '../components/Toolbar';
-import useCanvasDrawing from '../hooks/useCanvasDrawing';
-import useCanvasHistory from '../hooks/useCanvasHistory';
+import { ShapePoint, Coordinates } from '../types';
+import updateCanvasSize from '../utils/canvas/updateCanvasSize';
+import { useCanvasDrawing, useCanvasHistory } from '../hooks';
 
-export interface ShapePoint extends Point {
-  width?: number;
-  height?: number;
-  endX?: number;
-  endY?: number;
-  text?: string;
-  fontSize?: number;
-}
 
 const Canvas = () => {
   const location = useLocation();
   const canvasRef = useRef<HTMLCanvasElement>(null) as React.RefObject<HTMLCanvasElement>;
   const textInputRef = useRef<HTMLInputElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   
-  // Drawing state
   const [isDrawing, setIsDrawing] = useState(false);
   const [color, setColor] = useState('#000000');
   const [lineWidth, setLineWidth] = useState(5);
   const [fontSize, setFontSize] = useState(20);
   const [tool, setTool] = useState<ToolType>(ToolType.Draw);
   const [currentStroke, setCurrentStroke] = useState<ShapePoint[]>([]);
-  const [startPoint, setStartPoint] = useState<{ x: number; y: number } | null>(null);
+  const [startPoint, setStartPoint] = useState<Coordinates | null>(null);
   const [baseCanvasState, setBaseCanvasState] = useState<ImageData | null>(null);
   
-  // Text input state
   const [textInput, setTextInput] = useState('');
-  const [textPosition, setTextPosition] = useState<{ x: number; y: number } | null>(null);
+  const [textPosition, setTextPosition] = useState<Coordinates | null>(null);
   
-  // Use custom hooks for history management and drawing functions
   const { history, historyIndex, setHistoryIndex, saveCanvasState } = useCanvasHistory(canvasRef);
-  const { drawShape } = useCanvasDrawing(canvasRef);
+  const drawShape = useCanvasDrawing(canvasRef);
 
-  // Initialize canvas and set up socket listeners
   useEffect(() => {
-    const updateCanvasSize = () => {
-      const canvas = canvasRef.current;
-      const container = containerRef.current;
-      if (!canvas || !container) return;
-     
-      const rect = container.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-      
-      // Initialize with white background
-      const context = canvas.getContext('2d');
-      if (context) {
-        context.fillStyle = '#ffffff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-      }
-    };
+    updateCanvasSize(canvasRef, containerRef);
+    const handleResize = () => updateCanvasSize(canvasRef, containerRef);
 
-    updateCanvasSize();
-    window.addEventListener('resize', updateCanvasSize);
+    window.addEventListener('resize', handleResize);
     
-    // Set up socket event listeners
     const canvas = canvasRef.current;
     if (canvas) {
       onDraw((receivedElements: ShapePoint[]) => {
@@ -85,12 +57,12 @@ const Canvas = () => {
     }
 
     return () => {
-      window.removeEventListener('resize', updateCanvasSize);
+      window.removeEventListener('resize', handleResize);
       removeSocketListeners();
     };
   }, []);
 
-  // Mouse event handlers
+ 
   const startDrawing = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
     const { offsetX, offsetY } = e.nativeEvent;
     setIsDrawing(true);

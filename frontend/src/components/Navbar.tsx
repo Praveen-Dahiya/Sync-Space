@@ -26,10 +26,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }: NavbarProps) => {
               <button onClick={handleLogout} className="hover:text-blue-200">Logout</button>
             </>
           ) : (
-            <>
-              <Link to="/login" className="hover:text-blue-200">Login</Link>
-              <Link to="/signup" className="hover:text-blue-200">Sign Up</Link>
-            </>
+            <Link to="/auth" className="hover:text-blue-200">Sign In / Sign Up</Link>
           )}
         </div>
       </div>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Code, Heart, Cpu, Github, Linkedin } from 'lucide-react';
 
 const About = () => {
@@ -8,7 +7,7 @@ const About = () => {
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h1 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-            About CollabCanvas
+            Sync Space
           </h1>
           <p className="text-xl text-gray-700">
             A real-time collaborative drawing platform that enables teams 
@@ -30,7 +29,7 @@ const About = () => {
               features to help teams work better together no matter where they are located.
             </p>
             <p className="text-gray-700 leading-relaxed mt-4">
-              CollabCanvas was built to bridge the gap between design thinking and team collaboration,
+              Sync Space was built to bridge the gap between design thinking and team collaboration,
               enabling faster ideation and more efficient creative workflows.
             </p>
           </div>
@@ -71,23 +70,21 @@ const About = () => {
         </div>
 
         {/* Developer Section */}
-        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 max-w-3xl mx-auto">
+        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 max-w-8xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6 text-center">Meet the Developer</h2>
           <div className="flex flex-col md:flex-row items-center">
-            <div className="w-32 h-32 rounded-full mb-4 md:mb-0 md:mr-8 overflow-hidden border-4 border-blue-100">
-              {/* Note: In a real implementation, you would use next/image or another 
-                  image component with the actual image path from your project */}
+            <div className="w-32 h-32 mb-4 md:mb-0 md:mr-8 overflow-hidden border-4 border-blue-100">
               <img 
-                src="/api/placeholder/150/150" 
+                src="https://avatars.githubusercontent.com/u/59509985?v=4&size=1024" 
                 alt="Praveen Dahiya"
-                className="w-full h-full object-cover" 
+                className="w-full h-full object-cover object-center" 
               />
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-2">Praveen Dahiya</h3>
               <p className="text-gray-700 mb-4">
                 Full-stack developer passionate about creating intuitive, collaborative tools 
-                that enhance creativity and productivity. CollabCanvas is built with a focus on 
+                that enhance creativity and productivity. Sync Space is built with a focus on 
                 real-time performance and seamless user experience.
               </p>
               <div className="flex space-x-4">

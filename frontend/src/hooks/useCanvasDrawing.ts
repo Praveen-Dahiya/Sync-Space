@@ -1,9 +1,7 @@
-// File: hooks/useCanvasDrawing.ts
 import { useCallback } from 'react';
-import { ToolType } from '../types';
-import { ShapePoint } from '../pages/Canvas';
+import { ToolType, ShapePoint } from '../types';
 
-const useCanvasDrawing = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
+export const useCanvasDrawing = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
   const drawShape = useCallback((element: ShapePoint) => {
     const canvas = canvasRef.current;
     const context = canvas?.getContext('2d');
@@ -60,8 +58,7 @@ const useCanvasDrawing = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
     }
   }, [canvasRef]);
 
-  return { drawShape };
+  return drawShape;
 };
 
-export default useCanvasDrawing;
 

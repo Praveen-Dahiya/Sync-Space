@@ -5,15 +5,14 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
 import Canvas from './pages/Canvas'
-import Login from './pages/Login'
-import SignUp from './pages/SignUp'
+import Auth from './pages/Auth'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     if (!isAuthenticated) {
-      return <Navigate to="/login" replace />
+      return <Navigate to="/auth" replace />
     }
     return <>{children}</>
   }
@@ -31,8 +30,11 @@ function App() {
                 <Canvas />
               </ProtectedRoute>
             } />
-            <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/auth" element={<Auth setIsAuthenticated={setIsAuthenticated} />} />
+            
+            {/* Redirect old routes to the new auth page */}
+            <Route path="/login" element={<Navigate to="/auth" replace />} />
+            <Route path="/signup" element={<Navigate to="/auth" replace />} />
           </Routes>
         </main>
         <Footer />

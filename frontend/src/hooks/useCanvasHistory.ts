@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const useCanvasHistory = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
+export const useCanvasHistory = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
   const [history, setHistory] = useState<HTMLImageElement[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
 
@@ -22,5 +22,3 @@ const useCanvasHistory = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
 
   return { history, historyIndex, setHistoryIndex, saveCanvasState };
 };
-
-export default useCanvasHistory;

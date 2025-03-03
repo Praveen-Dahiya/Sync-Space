@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "dotenv": "^16.4.7"
   },
   "scripts": {
     "frontend": "cd frontend && npm run dev",

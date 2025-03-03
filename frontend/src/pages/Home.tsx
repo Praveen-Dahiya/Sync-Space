@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowRight, Users, Zap, Palette } from 'lucide-react';
 
 const Home = () => {
